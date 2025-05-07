@@ -1,22 +1,31 @@
-
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SleepScreen from './screens/SleepScreen';
+import ScanningScreen from './screens/scanningScreen';
+import StatisticsScreen from './screens/StatisticsScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import BottomTabBar from '../components/bottomTabBar';
-import './App.css';
-import StatisticsScreen from './screens/statisticsScreen';
-<Route path="/statistics" element={<StatisticsScreen/>} />
+
+const AppLayout = () => (
+  <div className="app-layout">
+    <div className="main-content">
+      <Routes>
+        <Route path="/" element={<SleepScreen />} />
+        <Route path="/scan" element={<ScanningScreen />} />
+        <Route path="/statistics" element={<StatisticsScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+      </Routes>
+    </div>
+    <BottomTabBar />
+  </div>
+);
 
 function App() {
   return (
-    <div className="app-container">
-      <div style={{ padding: '20px' }}>
-        <h1>Welcome to the App</h1>
-        <p>This is the main content area. Scroll or add content here.</p>
-      </div>
-
-      <BottomTabBar />
-    </div>
+    <Router>
+      <AppLayout />
+    </Router>
   );
 }
 
 export default App;
-

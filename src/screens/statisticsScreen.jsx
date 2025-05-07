@@ -1,7 +1,7 @@
 import React from 'react';
 import './statisticsScreen.scss';
 
-const  statisticsScreen = () => {
+const  StatisticsScreen = () => {
   return (
     <div className="statistics-screen">
       <h1 className="title">Statistics</h1>
