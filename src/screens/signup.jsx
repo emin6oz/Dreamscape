@@ -1,79 +1,68 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import "./signup.scss"; // Import the SCSS file
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F4F4F4] flex flex-col px-4 py-6">
-      <button className="text-lg mb-4">{`←`}</button>
+    <div className="signup-page">
+      <button className="back-button" onClick={()=>navigate('/login')}>{`←`}</button>
 
-      <h1 className="text-2xl font-bold text-[#0C0F2E]">Sign up</h1>
-      <p className="text-sm text-gray-500 mb-6">Create an account to continue!</p>
+      <div className="signup-container">
+        <h1>Sign up</h1>
+        <p className="subtitle">Create an account to continue!</p>
 
-      <form className="space-y-4">
-        <div>
-          <label className="text-sm font-medium text-gray-700">Full Name</label>
-          <input
-            type="text"
-            placeholder="Lois Becket"
-            className="w-full mt-1 p-3 rounded-lg border border-gray-200 bg-white text-sm"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium text-gray-700">Email</label>
-          <input
-            type="email"
-            placeholder="Loisbecket@gmail.com"
-            className="w-full mt-1 p-3 rounded-lg border border-gray-200 bg-white text-sm"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium text-gray-700">Birth of date</label>
-          <input
-            type="date"
-            className="w-full mt-1 p-3 rounded-lg border border-gray-200 bg-white text-sm"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium text-gray-700">Phone Number</label>
-          <input
-            type="tel"
-            placeholder="(454) 726-0592"
-            className="w-full mt-1 p-3 rounded-lg border border-gray-200 bg-white text-sm"
-          />
-        </div>
-        <div className="relative">
-          <label className="text-sm font-medium text-gray-700">Set Password</label>
-          <input
-            type={passwordVisible ? "text" : "password"}
-            placeholder="******"
-            className="w-full mt-1 p-3 pr-10 rounded-lg border border-gray-200 bg-white text-sm"
-          />
-          <button
-            type="button"
-            onClick={() => setPasswordVisible(!passwordVisible)}
-            className="absolute top-9 right-3 text-gray-400"
-          >
-            {passwordVisible ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+        <form className="signup-form">
+          <div>
+            <label>Full Name</label>
+            <input type="text" placeholder="Lois Becket" />
+          </div>
+
+          <div>
+            <label>Email</label>
+            <input type="email" placeholder="Loisbecket@gmail.com" />
+          </div>
+
+          <div>
+            <label>Birth of date</label>
+            <input type="date" />
+          </div>
+
+          <div className="phone-input-container">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(454) 726-0592" />
+          </div>
+
+          <div className="password-wrapper">
+            <label>Set Password</label>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              placeholder="******"
+            />
+            <button
+              type="button"
+              onClick={() => setPasswordVisible(!passwordVisible)}
+              className="toggle-visibility"
+            >
+              {passwordVisible ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+            </button>
+          </div>
+
+          <button type="submit" className="register-button">
+            Register
           </button>
-        </div>
+        </form>
 
-        <button
-          type="submit"
-          className="w-full bg-[#0C0F2E] text-white py-3 rounded-lg text-base font-semibold mt-4"
-        >
-          Register
-        </button>
-      </form>
-
-      <p className="text-center text-sm text-gray-600 mt-6">
-        Already have an account?{" "}
-        <Link to="/login" className="font-semibold text-black">
-          Login
-        </Link>
-      </p>
+        <p className="bottom-text">
+          Already have an account?{" "}
+          <Link to="/login" className="login-link">
+            Login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

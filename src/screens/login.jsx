@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import "./login.scss";
 import { Link } from "react-router-dom";
+import "./login.scss";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -19,7 +19,6 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-
     <div className="login-page">
       <div className="login-container">
         <h1>Log in to your</h1>
@@ -47,7 +46,7 @@ const Login = ({ onLogin }) => {
               onClick={() => setShowPassword(!showPassword)}
               className="toggle-visibility"
             >
-              {showPassword ? <EyeIcon size={18} /> : <EyeOffIcon size={18} />}
+              {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
             </button>
           </div>
 
@@ -71,12 +70,12 @@ const Login = ({ onLogin }) => {
           </button>
         </div>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
-  Don’t have an account?{" "}
-  <Link to="/signup" className="text-black font-semibold cursor-pointer">
-    Sign Up
-  </Link>
-</p>
+        <p className="signup-text">
+          Don’t have an account?{" "}
+          <Link to="/signup" className="signup-link">
+            Sign Up
+          </Link>
+        </p>
       </div>
     </div>
   );

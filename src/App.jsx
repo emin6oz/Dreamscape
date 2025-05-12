@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import SleepScreen from "./screens/SleepScreen";
 import ScanningScreen from "./screens/scanningScreen";
 import StatisticsScreen from "./screens/StatisticsScreen";
@@ -23,15 +23,25 @@ const AppLayout = () => (
 );
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Router>
-      {isLoggedIn ? (
-        <AppLayout />
-      ) : (
-        <Login onLogin={() => setIsLoggedIn(true)} />
-      )}
+      <Routes>
+        {/* Public routes */}
+        <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+        <Route path="/signup" element={<SignUp />} />
+
+        {/* Protected routes */}
+        {isLoggedIn ? (
+          <>
+            <Route path="/*" element={<AppLayout />} />
+          </>
+        ) : (
+          // Redirect any non-public route access to login
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        )}
+      </Routes>
     </Router>
   );
 }
