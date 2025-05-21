@@ -23,6 +23,7 @@ const Login = ({ onLogin }) => {
 };
 
 
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -31,6 +32,7 @@ const Login = ({ onLogin }) => {
         <p className="subtitle">Enter your email and password to log in</p>
 
         <form onSubmit={handleSubmit}>
+          
           <label>Email</label>
           <input
             name="email"
@@ -73,10 +75,7 @@ const Login = ({ onLogin }) => {
             <FaGoogle className="google-icon" />
             Continue with Google
           </button>
-          <button>
-            <FaFacebookF className="facebook-icon" />
-            Continue with Facebook
-          </button>
+        
         </div>
 
         <p className="signup-text">
