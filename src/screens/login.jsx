@@ -2,21 +2,26 @@ import React, { useState } from "react";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin"; 
 import "./login.scss";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { login, loading, error } = useLogin();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email === "test@example.com" && password === "password") {
-      onLogin();
-    } else {
-      alert("Invalid email or password");
-    }
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const user = await login(email, password);
+  if (user) {
+    onLogin(user);
+    navigate("/sleepscreen");
+  }
+};
+
 
   return (
     <div className="login-page">
@@ -28,6 +33,7 @@ const Login = ({ onLogin }) => {
         <form onSubmit={handleSubmit}>
           <label>Email</label>
           <input
+            name="email"
             type="email"
             placeholder="example@email.com"
             value={email}
@@ -37,6 +43,7 @@ const Login = ({ onLogin }) => {
           <label>Password</label>
           <div className="password-wrapper">
             <input
+              name="password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -52,8 +59,10 @@ const Login = ({ onLogin }) => {
 
           <div className="forgot-password">Forgot Password?</div>
 
-          <button type="submit" className="login-button">
-            Log In
+          {error && <p className="error-message">{error}</p>}
+
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 

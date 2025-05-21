@@ -6,7 +6,12 @@
     // align-items: center;
     padding: 1.5rem;
     
-  
+  .error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
     .login-container {
       background: #F4F4F4;
       padding: 2rem 1.5rem;
