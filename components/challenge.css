@@ -1,0 +1,6 @@
+.circular-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    display: inline-block;
+    border-radius: 50%;
+  }

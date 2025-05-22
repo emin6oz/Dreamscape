@@ -1,0 +1,157 @@
+.statistics-screen {
+  background-color: #0a0f24;
+  color: #fff;
+  padding: 16px;
+  padding-bottom: 80px;
+  min-height: 100vh;
+
+  .title {
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .date-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .date-item {
+      text-align: center;
+      font-size: 12px;
+      color: #8a94b7;
+
+      &.active {
+        color: #ffffff;
+        font-weight: bold;
+      }
+
+      .day {
+        display: block;
+        padding-bottom: 8px;
+      }
+
+      .date {
+        font-size: 14px;
+      }
+    }
+  }
+
+  
+
+  .section-title {
+    margin-top: 16px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .sleep-stages-chart {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: #141a35;
+    padding: 16px;
+    border-radius: 12px;
+    width: 325px;
+height: 110px;
+flex-shrink: 0;
+    margin-bottom: 16px;
+
+    .chart-block {
+      text-align: center;
+      flex: 1;
+      
+      .chart {
+        width: 20%;
+        height: 20%;
+        margin: 0 auto;
+        background-color: #A2A0A0;
+      } 
+      
+
+      .label {
+        .label {
+    font-size: 12px;
+    color: #9cb3d8;
+    margin-bottom: 4px;
+  }
+      }
+
+      .chart-wrapper {
+  width: 35px;
+  height: 35px;
+  margin: 0 auto;
+}
+
+      .metrics {
+        margin-top: 8px;
+
+        .percent {
+          font-size: 13px;
+          font-weight: bold;
+          color: #ffffff;
+        }
+
+        .time {
+          font-size: 12px;
+          color: #9cb3d8;
+        }
+      }
+    }
+  }
+
+  .sleep-info {
+    display: flex;
+    justify-content: space-between;
+    background-color: #141a35;
+    padding: 16px;
+    width: 325px;
+height: 110px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+
+    .info-block {
+      text-align: center;
+
+      span {
+        font-size: 20px;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .label {
+        font-size: 12px;
+        color: #9cb3d8;
+      }
+
+      .value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .tips {
+    background-color: #141a35;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .tip {
+      font-size: 13px;
+      display: flex;
+      align-items: start;
+      gap: 8px;
+      line-height: 1.4;
+
+      span {
+        font-size: 16px;
+        margin-top: 2px;
+      }
+    }
+  }
+}
