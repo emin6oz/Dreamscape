@@ -3,8 +3,8 @@ import { FaBed, FaRegUser } from "react-icons/fa";
 import { MdOutlineSensors } from "react-icons/md";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import { FaPlay, FaPause } from "react-icons/fa6";
+import '../styles/MusicPage.scss';
 
-// Music List
 const musicList = [
   {
     title: "Dreamy",
@@ -50,29 +50,22 @@ const MusicPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0A0F24] text-white flex flex-col">
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-auto px-5 pt-5 pb-28">
-
-        {/* Header */}
+      <div className="flex-1 overflow-auto px-5 pt-5 pb-52">
         <h2 className="text-center text-xl font-bold leading-snug mb-6">
           Listen to personalized playlists<br />
           to improve your sleep quality.
         </h2>
 
-        {/* Picked for You */}
         <div className="mb-6">
           <h2 className="text-base font-semibold mb-2">Picked for you</h2>
 
           <div className="bg-[#5A77B4] p-4 rounded-2xl flex items-center gap-4 h-28">
-            {/* Album Image */}
             <img
-  src="https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&h=640"
-  alt="Chill Beats"
-  className="w-20 h-20 rounded-lg object-cover"
-/>
+              src="https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&h=640"
+              alt="Chill Beats"
+              className="w-20 h-20 rounded-lg object-cover"
+            />
 
-
-            {/* Text */}
             <div className="flex-1">
               <p className="text-white font-bold text-sm">Chill Beats</p>
               <p className="text-white/80 text-xs leading-tight mt-1 pr-2">
@@ -80,7 +73,6 @@ const MusicPage = () => {
               </p>
             </div>
 
-            {/* Play/Pause Button */}
             <button
               onClick={handleTogglePlay}
               className="bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-md"
@@ -93,14 +85,12 @@ const MusicPage = () => {
             </button>
           </div>
 
-          {/* Working Audio */}
           <audio
             ref={audioRef}
             src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
           />
         </div>
 
-        {/* Browse All */}
         <h3 className="text-md font-semibold mb-3">Browse all</h3>
         <div className="grid grid-cols-2 gap-4 mb-6">
           {musicList.map((item, i) => (
