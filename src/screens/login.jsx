@@ -13,14 +13,37 @@ const Login = ({ onLogin }) => {
   const { login, loading, error } = useLogin();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   const user = await login(email, password);
+//   if (user) {
+//     onLogin(user);
+//     navigate("/sleepscreen");
+//   }
+// };
+
+const handleSubmit = async (e) => {
   e.preventDefault();
+
+  const devMode = true; // 🔁 Change to false when you want real login again
+
+  if (devMode) {
+    const fakeUser = { email: "dev@user.com", name: "Dev User" };
+    onLogin(fakeUser); // Simulate a logged-in user
+    navigate("/sleepscreen");
+    return;
+  }
+
   const user = await login(email, password);
   if (user) {
     onLogin(user);
     navigate("/sleepscreen");
   }
 };
+
+
+
+
 
 
 

@@ -1,47 +1,65 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./statisticsScreen.scss";
-import SleepStagesChart from "../components/SleepStagesChart";
+import SleepStagesChart from "../../components/sleepstageschart";
+
+const getWeekDates = () => {
+  const today = new Date();
+  const week = [];
+  const start = new Date(today);
+  start.setDate(today.getDate() - 6);
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(start);
+    date.setDate(start.getDate() + i);
+    week.push({
+      day: date.toLocaleDateString("en-US", { weekday: "short" }),
+      date: date.getDate(),
+      isToday: date.toDateString() === today.toDateString(),
+      past: date <= today,
+    });
+  }
+  return week;
+};
 
 const StatisticsScreen = () => {
+  const scrollRef = useRef(null);
+  const weekDates = getWeekDates();
+
+  useEffect(() => {
+    const todayIndex = weekDates.findIndex((d) => d.isToday);
+    if (scrollRef.current) {
+      const child = scrollRef.current.children[todayIndex];
+      if (child) {
+        child.scrollIntoView({ behavior: "smooth", inline: "center" });
+      }
+    }
+  }, [weekDates]);
+
   return (
     <div className="statistics-screen">
       <h1 className="title">Statistics</h1>
 
-      <div className="date-row">
-        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => (
-          <div key={day} className={`date-item ${index === 2 ? "active" : ""}`}>
-            <span className="day">{day}</span>
-            <span className="date">{6 + index}</span>
+      <div className="date-row" ref={scrollRef}>
+        {weekDates.map((d, i) => (
+          <div
+            key={i}
+            className={`date-item ${d.isToday ? "active" : ""} ${
+              !d.past ? "disabled" : ""
+            }`}
+          >
+            <span className="day">{d.day}</span>
+            <span className="date">{d.date}</span>
           </div>
         ))}
       </div>
 
       <h2 className="section-title">Sleep stages</h2>
-
-      <div className="sleep-stages">
-        <div className="stage">
-          <div className="circle awake" />
-          <div className="label">Awake</div>
-          <div className="value">9%</div>
-          <div className="time">9min</div>
-        </div>
-        <div className="stage">
-          <div className="circle light" />
-          <div className="label">Light sleep</div>
-          <div className="value">58%</div>
-          <div className="time">&gt;5h</div>
-        </div>
-        <div className="stage">
-          <div className="circle deep" />
-          <div className="label">Deep sleep</div>
-          <div className="value">33%</div>
-          <div className="time">3h</div>
-        </div>
-      </div>
+      <SleepStagesChart />
 
       <div className="sleep-info">
+        
         <div className="info-block">
           <span role="img" aria-label="moon">
+            <div className="label">Asleep</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="17"
@@ -55,11 +73,12 @@ const StatisticsScreen = () => {
               />
             </svg>
           </span>
-          <div className="label">Asleep</div>
+
           <div className="value">8h</div>
         </div>
         <div className="info-block">
           <span role="img" aria-label="bed">
+            <div className="label">In bed</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -75,11 +94,12 @@ const StatisticsScreen = () => {
               />
             </svg>
           </span>
-          <div className="label">In bed</div>
+
           <div className="value">8h 30min</div>
         </div>
         <div className="info-block">
           <span role="img" aria-label="sound">
+            <div className="label">Noise</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="19"
@@ -93,7 +113,7 @@ const StatisticsScreen = () => {
               />
             </svg>
           </span>
-          <div className="label">Noise</div>
+
           <div className="value">40dB</div>
         </div>
       </div>
@@ -124,7 +144,7 @@ const StatisticsScreen = () => {
                 stroke-linejoin="round"
               />
             </svg>
-          </span>{" "}
+          </span>
           Use ear plugs in not so quiet places for better rest.
         </div>
         <div className="tip">
@@ -141,7 +161,7 @@ const StatisticsScreen = () => {
                 fill="#F4F4F4"
               />
             </svg>
-          </span>{" "}
+          </span>
           Stay hydrated! Drinking water before bed supports temperature
           regulation.
         </div>
@@ -161,8 +181,7 @@ const StatisticsScreen = () => {
                 fill="#F4F4F4"
               />
             </svg>
-            
-          </span>{" "}
+          </span>
           Avoid screens 1–2 hours before bed.
         </div>
         <div className="tip">
@@ -180,10 +199,10 @@ const StatisticsScreen = () => {
                 d="M20 4V17C19.9997 17.6368 19.7967 18.2569 19.4206 18.7707C19.0444 19.2844 18.5145 19.6652 17.9076 19.8578C17.3007 20.0505 16.6482 20.045 16.0446 19.8422C15.441 19.6394 14.9176 19.2498 14.5501 18.7298C14.1826 18.2098 13.9901 17.5864 14.0004 16.9497C14.0107 16.313 14.2234 15.6961 14.6076 15.1883C14.9918 14.6806 15.5276 14.3082 16.1375 14.1251C16.7473 13.942 17.3997 13.9577 18 14.17V6H10V19C9.99967 19.6368 9.79673 20.2569 9.42057 20.7707C9.0444 21.2844 8.51451 21.6652 7.90759 21.8578C7.30067 22.0505 6.64819 22.045 6.04459 21.8422C5.44098 21.6394 4.91755 21.2498 4.55006 20.7298C4.18256 20.2098 3.99005 19.5864 4.0004 18.9497C4.01074 18.313 4.2234 17.6961 4.60759 17.1883C4.99179 16.6805 5.52759 16.3082 6.13747 16.1251C6.74735 15.942 7.39966 15.9577 8 16.17V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H18C18.5304 2 19.0391 2.21071 19.4142 2.58579C19.7893 2.96086 20 3.46957 20 4Z"
                 fill="#F4F4F4"
               />
-            </svg>
-          </span>{" "}
-          Listen to peaceful sounds before going to sleep. It’ll help you to
-          reduce stress.
+            </svg>{" "}
+          </span>
+          Listen to peaceful sounds before going to sleep. It’ll help you reduce
+          stress.
         </div>
       </div>
     </div>
