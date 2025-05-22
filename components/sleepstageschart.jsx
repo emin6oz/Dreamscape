@@ -33,7 +33,7 @@ const SleepStagesChart = () => {
           datasets: [
             {
               data: [stage.value, 100 - stage.value],
-              backgroundColor: [stage.color, "#1d223d"],
+              backgroundColor: [stage.color, "#A2A0A0"],
               borderWidth: 0,
             },
           ],
@@ -45,9 +45,7 @@ const SleepStagesChart = () => {
             <div className="chart-wrapper">
               <Pie data={data} options={options} />
             </div>
-            <div className="label">Awake</div>
-            <div className="label">light sleep</div>
-            <div className="label">Deep</div>
+            
             <div className="metrics">
               <div className="percent">{stage.value}%</div>
               <div className="time">{stage.time}</div>

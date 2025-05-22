@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import "./statisticsScreen.scss";
+
 import SleepStagesChart from "../../components/sleepstageschart";
 
 const getWeekDates = () => {
+  
   const today = new Date();
   const week = [];
   const start = new Date(today);
