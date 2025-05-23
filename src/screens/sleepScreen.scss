@@ -1,0 +1,105 @@
+.sleep-screen {
+  background-color: #0A0F24;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Noto Sans', sans-serif;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+  }
+
+  .circular-chart {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin-bottom: 24px;
+
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .time-settings {
+    background-color: #131735;
+    border-radius: 12px;
+    padding: 16px;
+    width: 100%;
+    max-width: 360px;
+    margin-bottom: 24px;
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .icon {
+        margin-right: 8px;
+        font-size: 18px;
+      }
+
+      .edit-icon {
+        color: #fff;
+        font-size: 14px;
+      }
+
+      .time {
+        margin-left: auto;
+        margin-right: 8px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .sleep-btn {
+    background-color: #fff;
+    color: #0A0F24;
+    font-weight: bold;
+    border: none;
+    border-radius: 9999px;
+    padding: 14px 32px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 32px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #e5e5e5;
+    }
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0A0F24;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    .tab {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+
+      &.active {
+        color: #fff;
+        font-weight: bold;
+      }
+    }
+  }
+}
