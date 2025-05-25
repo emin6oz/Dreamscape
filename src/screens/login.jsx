@@ -18,7 +18,7 @@ const Login = ({ onLogin }) => {
 //   const user = await login(email, password);
 //   if (user) {
 //     onLogin(user);
-//     navigate("/sleepscreen");
+  navigate("/sleepscreen");
 //   }
 // };
 

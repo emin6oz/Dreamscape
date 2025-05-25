@@ -14,6 +14,7 @@
 }
 
 .tab-button {
+  fill: black;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -27,10 +28,15 @@
   cursor: pointer;
   transition: color 0.2s ease-in-out;
 }
-
+.tab-button svg {
+  stroke: currentColor;
+  transition: color 0.3s ease;
+}
 .tab-button.active {
   color: #6D83AB;
+  fill: aquamarine;
 }
+
 
 
 @media (min-width: 768px) {
