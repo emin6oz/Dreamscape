@@ -12,33 +12,51 @@
     font-weight: 600;
   }
 
-  .date-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  .date-row-wrapper {
+    overflow-x: auto;
+    padding-bottom: 12px;
 
-    .date-item {
-      text-align: center;
-      font-size: 12px;
-      color: #8a94b7;
+    .date-row {
+      display: flex;
+      gap: 12px;
+      white-space: nowrap;
+      width: max-content;
 
-      &.active {
-        color: #ffffff;
-        font-weight: bold;
-      }
+      .date-item {
+        min-width: 52px;
+        text-align: center;
+        font-size: 12px;
+        color: #8a94b7;
+        padding: 6px 8px;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
 
-      .day {
-        display: block;
-        padding-bottom: 8px;
-      }
+        &.active {
+          color: #ffffff;
+          font-weight: bold;
+          background-color: #ffffff12;
+        }
 
-      .date {
-        font-size: 14px;
+        .day {
+          display: block;
+          padding-bottom: 8px;
+        }
+
+        .date {
+          font-size: 14px;
+        }
       }
     }
-  }
 
-  
+    // Optional: hide scrollbar
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   .section-title {
     margin-top: 16px;

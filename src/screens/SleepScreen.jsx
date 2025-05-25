@@ -159,6 +159,7 @@ const SleepScreen = () => {
                 className="edit-icon"
                 onClick={() => setEditBed(true)}
               />
+              
             </>
           )}
         </div>

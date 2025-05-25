@@ -1,30 +1,27 @@
 import React, { useEffect, useRef } from "react";
 import "./statisticsScreen.scss";
-
 import SleepStagesChart from "../../components/sleepstageschart";
 
-const getWeekDates = () => {
-  
+const getLastNDays = (days = 14) => {
   const today = new Date();
-  const week = [];
-  const start = new Date(today);
-  start.setDate(today.getDate() - 6);
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(start);
-    date.setDate(start.getDate() + i);
-    week.push({
+  const pastDays = [];
+
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    pastDays.push({
       day: date.toLocaleDateString("en-US", { weekday: "short" }),
       date: date.getDate(),
       isToday: date.toDateString() === today.toDateString(),
-      past: date <= today,
     });
   }
-  return week;
+
+  return pastDays;
 };
 
 const StatisticsScreen = () => {
   const scrollRef = useRef(null);
-  const weekDates = getWeekDates();
+  const weekDates = getLastNDays();
 
   useEffect(() => {
     const todayIndex = weekDates.findIndex((d) => d.isToday);
@@ -40,18 +37,18 @@ const StatisticsScreen = () => {
     <div className="statistics-screen">
       <h1 className="title">Statistics</h1>
 
-      <div className="date-row" ref={scrollRef}>
-        {weekDates.map((d, i) => (
-          <div
-            key={i}
-            className={`date-item ${d.isToday ? "active" : ""} ${
-              !d.past ? "disabled" : ""
-            }`}
-          >
-            <span className="day">{d.day}</span>
-            <span className="date">{d.date}</span>
-          </div>
-        ))}
+      <div className="date-row-wrapper">
+        <div className="date-row" ref={scrollRef}>
+          {weekDates.map((d, i) => (
+            <div
+              key={i}
+              className={`date-item ${d.isToday ? "active" : ""}`}
+            >
+              <span className="day">{d.day}</span>
+              <span className="date">{d.date}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <h2 className="section-title">Sleep stages</h2>

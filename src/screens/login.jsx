@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useLogin } from "../hooks/useLogin"; 
+import { useLogin } from "../hooks/useLogin";
 import "./login.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -13,39 +13,33 @@ const Login = ({ onLogin }) => {
   const { login, loading, error } = useLogin();
   const navigate = useNavigate();
 
-//   const handleSubmit = async (e) => {
-//   e.preventDefault();
-//   const user = await login(email, password);
-//   if (user) {
-//     onLogin(user);
-  navigate("/sleepscreen");
-//   }
-// };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = await login(email, password);
+    if (user) {
+      onLogin(user);
+      navigate("/sleepscreen");
+    }
+  };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-  const devMode = true; // 🔁 Change to false when you want real login again
+  //   const devMode = true;
 
-  if (devMode) {
-    const fakeUser = { email: "dev@user.com", name: "Dev User" };
-    onLogin(fakeUser); // Simulate a logged-in user
-    navigate("/sleepscreen");
-    return;
-  }
+  //   if (devMode) {
+  //     const fakeUser = { email: "dev@user.com", name: "Dev User" };
+  //     onLogin(fakeUser);
+  //     navigate("/sleepscreen");
+  //     return;
+  //   }
 
-  const user = await login(email, password);
-  if (user) {
-    onLogin(user);
-    navigate("/sleepscreen");
-  }
-};
-
-
-
-
-
-
+  //   const user = await login(email, password);
+  //   if (user) {
+  //     onLogin(user);
+  //     navigate("/sleepscreen");
+  //   }
+  // };
 
   return (
     <div className="login-page">
@@ -55,7 +49,6 @@ const handleSubmit = async (e) => {
         <p className="subtitle">Enter your email and password to log in</p>
 
         <form onSubmit={handleSubmit}>
-          
           <label>Email</label>
           <input
             name="email"
@@ -98,7 +91,6 @@ const handleSubmit = async (e) => {
             <FaGoogle className="google-icon" />
             Continue with Google
           </button>
-        
         </div>
 
         <p className="signup-text">
