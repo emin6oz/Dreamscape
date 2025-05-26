@@ -1,0 +1,193 @@
+.music-screen {
+    min-height: 100vh;
+    background-color: #0A0F24;
+    color: white;
+    display: flex;
+    flex-direction: column;
+  
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.25rem 7rem;
+  
+      h2 {
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+  
+      .picked-section {
+        margin-bottom: 1.5rem;
+  
+        h2 {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+  
+        .picked-card {
+          background-color: #5A77B4;
+          padding: 1rem;
+          border-radius: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          height: 7rem;
+  
+          img {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 0.5rem;
+            object-fit: cover;
+          }
+  
+          .info {
+            flex: 1;
+  
+            p:first-of-type {
+              font-weight: bold;
+              font-size: 0.875rem;
+            }
+  
+            p:last-of-type {
+              font-size: 0.75rem;
+              color: rgba(255, 255, 255, 0.8);
+              margin-top: 0.25rem;
+            }
+          }
+  
+          .play-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: white;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  
+            svg {
+              color: #5A77B4;
+              width: 1rem;
+              height: 1rem;
+            }
+          }
+        }
+      }
+  
+      .browse-section {
+        h3 {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.75rem;
+        }
+  
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+  
+          .tile {
+            background-color: #6D83AB;
+            border-radius: 0.5rem;
+            overflow: hidden;
+  
+            img {
+              width: 100%;
+              height: 5rem;
+              object-fit: cover;
+            }
+  
+            .title {
+              padding: 0.5rem;
+              font-weight: 600;
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+  
+    .player-bar {
+      position: fixed;
+      bottom: 4rem;
+      left: 0.5rem;
+      right: 1rem;
+      background-color: #6D83AB;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  
+      .left {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+  
+        .icon {
+          width: 3rem;
+          height: 3rem;
+          background: white;
+          border-radius: 1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+  
+        .track {
+          .title {
+            font-size: 0.875rem;
+            font-weight: 600;
+          }
+  
+          .artist {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+          }
+        }
+      }
+  
+      .play-btn {
+        width: 2rem;
+        height: 2rem;
+        background: white;
+        color: #0A0F24;
+        border-radius: 9999px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #0A0F24;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+  
+      .icon-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        &.active {
+          color: white;
+        }
+  
+        svg {
+          font-size: 1.125rem;
+        }
+      }
+    }
+  }
+  

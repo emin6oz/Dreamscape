@@ -1,0 +1,79 @@
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+import SleepScreen from "./screens/SleepScreen";
+import ScanningScreen from "./screens/scanningScreen";
+import StatisticsScreen from "./screens/statisticsScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import BottomTabBar from "./components/bottomTabBar";
+
+import Login from "./screens/login";
+import SignUp from "./screens/signup";
+import SplashScreen from "./screens/SplashScreen";
+
+import Sleep0 from "./screens/Sleep0";
+import Sleep1 from "./screens/Sleep1";
+import Sleep2 from "./screens/Sleep2";
+import Sleep3 from "./screens/Sleep3";
+import Sleep4 from "./screens/Sleep4";
+
+import NotificationPermission from "./screens/NotificationPermission";
+import MicPermission from "./screens/MicPermission"; 
+import AlarmScreen from "./screens/AlarmScreen";
+import MusicScreen from "./screens/musicScreen"
+
+const AppLayout = () => (
+  <div className="app-layout">
+    <div className="main-content">
+      <Routes>
+        <Route path="/" element={<SleepScreen />} />
+        <Route path="/scan" element={<ScanningScreen />} />
+        <Route path="/statistics" element={<StatisticsScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/notification-permission" element={<NotificationPermission />} />
+        <Route path="/alarm" element={<AlarmScreen />} /> 
+        <Route path="/music" element={<MusicScreen />} />
+
+      </Routes>
+    </div>
+    <BottomTabBar />
+  </div>
+);
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("loggedIn") === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("loggedIn", isLoggedIn);
+  }, [isLoggedIn]);
+
+  return (
+    <Router>
+      <Routes>
+        {/* 🔓 Public pre-login routes */}
+        <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/splash" element={<SplashScreen />} />
+        <Route path="/sleep0" element={<Sleep0 />} />
+        <Route path="/sleep1" element={<Sleep1 />} />
+        <Route path="/sleep2" element={<Sleep2 />} />
+        <Route path="/sleep3" element={<Sleep3 />} />
+        <Route path="/sleep4" element={<Sleep4 />} />
+        <Route path="/notification-permission" element={<NotificationPermission />} />
+        <Route path="/mic-permission" element={<MicPermission />} />
+
+        {/* 🔒 Protected routes */}
+        {isLoggedIn ? (
+          <Route path="/*" element={<AppLayout />} />
+        ) : (
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        )}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
