@@ -13,33 +13,37 @@ const Login = ({ onLogin }) => {
   const { login, loading, error } = useLogin();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const user = await login(email, password);
-    if (user) {
-      onLogin(user);
-      navigate("/sleepscreen");
-    }
-  };
-
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
-
-  //   const devMode = true;
-
-  //   if (devMode) {
-  //     const fakeUser = { email: "dev@user.com", name: "Dev User" };
-  //     onLogin(fakeUser);
-  //     navigate("/sleepscreen");
-  //     return;
-  //   }
-
   //   const user = await login(email, password);
   //   if (user) {
   //     onLogin(user);
   //     navigate("/sleepscreen");
   //   }
   // };
+
+  // Handles form submission for login.
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const devMode = true;
+
+    if (devMode) {
+            // In dev mode, log in a fake user and skip backend authentication.
+
+      const fakeUser = { email: "dev@user.com", name: "Dev User" };
+      onLogin(fakeUser);
+      navigate("/sleepscreen");
+      return;
+    }
+     // In production, call the real login function.
+
+    const user = await login(email, password);
+    if (user) {
+      onLogin(user);
+      navigate("/sleepscreen");
+    }
+  };
 
   return (
     <div className="login-page">

@@ -4,28 +4,36 @@ import { MdAccessTime } from "react-icons/md";
 import { BsPencil } from "react-icons/bs";
 import "./sleepScreen.scss";
 
-const SleepScreen = () => {
+const SleepScreen = () => {   // State for bedtime and alarm time
   const [bedtime, setBedtime] = useState("00:00");
   const [alarm, setAlarm] = useState("08:00");
-  const [editBed, setEditBed] = useState(false);
+  const [editBed, setEditBed] = useState(false); //  // State to toggle edit inputs
   const [editAlarm, setEditAlarm] = useState(false);
 
+   // SVG circle setup
   const radius = 100;
   const center = 110;
   const circumference = 2 * Math.PI * radius;
 
+  // Convert HH:MM string into numbers
   const [bedHours, bedMinutes] = bedtime.split(":").map(Number);
   const [alarmHours, alarmMinutes] = alarm.split(":").map(Number);
-
+  
+  // Convert time to total minutes from midnight
   const bedMins = bedHours * 60 + bedMinutes;
   const alarmMins = alarmHours * 60 + alarmMinutes;
-  const totalMins =
-    alarmMins >= bedMins ? alarmMins - bedMins : 1440 - bedMins + alarmMins;
 
+   // Calculate how many minutes total the user plans to sleep
+  // If bedtime is 23:00 and alarm is 08:00 next day, this logic still works
+  const totalMins =
+    alarmMins >= bedMins ? alarmMins - bedMins : 1440 - bedMins + alarmMins;// 1440 minutes in a day
+
+    // Calculate how much of the circle should be filled
   const progress = totalMins / 1440;
   const dashOffset = circumference * (1 - progress);
   const startAngle = (bedMins / 1440) * 360;
   const endAngle = (((bedMins + totalMins) % 1440) / 1440) * 360;
+
 
   const polarToCartesian = (angleDeg) => {
     const rad = (angleDeg - 90) * (Math.PI / 180);

@@ -2,12 +2,13 @@ import React, { useEffect, useRef } from "react";
 import "./statisticsScreen.scss";
 import SleepStagesChart from "../../components/sleepstageschart";
 
+// This function gives us the last 14 days as an array (like Mon, Tue, etc.)
 const getLastNDays = (days = 14) => {
   const today = new Date();
   const pastDays = [];
 
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(today);
+  for (let i = days - 1; i >= 0; i--) {  //this code make the calendar start from today and go back 14 days
+    const date = new Date(today); //Start with today’s date
     date.setDate(today.getDate() - i);
     pastDays.push({
       day: date.toLocaleDateString("en-US", { weekday: "short" }),
@@ -20,9 +21,10 @@ const getLastNDays = (days = 14) => {
 };
 
 const StatisticsScreen = () => {
-  const scrollRef = useRef(null);
-  const weekDates = getLastNDays();
+  const scrollRef = useRef(null);  // Helps us scroll to today automatically
+  const weekDates = getLastNDays(); // Get last 14 days
 
+  // When screen loads, scroll the date row to show today in the center
   useEffect(() => {
     const todayIndex = weekDates.findIndex((d) => d.isToday);
     if (scrollRef.current) {
