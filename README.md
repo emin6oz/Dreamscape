@@ -17,7 +17,13 @@ Dreamscape is a restful sleep optimization app that uses object recognition to p
 #### -Sign in and sign up funcionality 
 #### -Laravel API Integration: Backend handles sleep session tracking and data logic 
 
+--- 
+## VERCEL link 
+https://dreamscapefrontendd.vercel.app 
+
+We couldn’t invite Tom directly to Vercel because adding project collaborators is only available on a paid (Pro or Enterprise) plan.
 ---
+
 ### 🛠 Tech Stack
 ### Frontend:
 
