@@ -58,10 +58,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public / onboarding routes */}
+        {/* Redirect root to login always */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Public routes */}
         <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/splash" element={<SplashScreen />} />
+
+        {/* Onboarding flow */}
         <Route path="/sleep0" element={<Sleep0 />} />
         <Route path="/sleep1" element={<Sleep1 />} />
         <Route path="/sleep2" element={<Sleep2 />} />
@@ -70,19 +75,11 @@ function App() {
         <Route path="/notification-permission" element={<NotificationPermission />} />
         <Route path="/mic-permission" element={<MicPermission />} />
 
-        {/* Protected layout */}
+        {/* Protected routes */}
         <Route
           path="/*"
           element={
             isLoggedIn ? <AppLayout /> : <Navigate to="/login" replace />
-          }
-        />
-
-        {/* Base redirect */}
-        <Route
-          path="/"
-          element={
-            isLoggedIn ? <Navigate to="/sleepscreen" replace /> : <Navigate to="/login" replace />
           }
         />
       </Routes>
