@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as tmImage from "@teachablemachine/image";
 import { useNavigate } from "react-router-dom";
+import { FaSyncAlt } from "react-icons/fa";
 
 const ScanningScreen = () => {
   const videoRef = useRef(null);
@@ -8,6 +9,8 @@ const ScanningScreen = () => {
   const [model, setModel] = useState(null);
   const [webcam, setWebcam] = useState(null);
   const [predictions, setPredictions] = useState([]);
+  const [facingMode, setFacingMode] = useState("environment");
+  const [isFlipping, setIsFlipping] = useState(false); 
 
   const MODEL_PATH = "/tm-model/";
   const stableLabelRef = useRef(null);
@@ -20,9 +23,12 @@ const ScanningScreen = () => {
       const metadataURL = MODEL_PATH + "metadata.json";
 
       const loadedModel = await tmImage.load(modelURL, metadataURL);
-      const newWebcam = new tmImage.Webcam(320, 240, true);
-      await newWebcam.setup();
+      if (webcam) webcam.stop();
+
+      const newWebcam = new tmImage.Webcam(320, 240, facingMode === "user");
+      await newWebcam.setup({ facingMode });
       await newWebcam.play();
+
       setModel(loadedModel);
       setWebcam(newWebcam);
 
@@ -39,7 +45,7 @@ const ScanningScreen = () => {
     };
 
     initModel();
-  }, []);
+  }, [facingMode]);
 
   const loop = async (webcamInstance, modelInstance) => {
     webcamInstance.update();
@@ -78,9 +84,16 @@ const ScanningScreen = () => {
     }
   };
 
+  const flipCamera = () => {
+    setIsFlipping(true);
+    setFacingMode((prev) => (prev === "environment" ? "user" : "environment"));
+    setTimeout(() => setIsFlipping(false), 400);
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.overlay} />
+
       <div style={styles.scanFrame}>
         <div ref={videoRef} style={styles.video} />
         {["topLeft", "topRight", "bottomLeft", "bottomRight"].map((corner) => (
@@ -97,6 +110,7 @@ const ScanningScreen = () => {
 
       <div style={styles.bottomSection}>
         <div style={styles.text}>Scanning for items...</div>
+
         <div style={styles.predictions}>
           {predictions
             .sort((a, b) => b.probability - a.probability)
@@ -107,14 +121,28 @@ const ScanningScreen = () => {
               </div>
             ))}
         </div>
-        <button
-          style={styles.button}
-          onClick={() =>
-            navigate("/recommendations", { state: { label: "manual" } })
-          }
-        >
-          Manual Recommendation
-        </button>
+
+        <div style={styles.buttonRow}>
+          <button
+            style={styles.button}
+            onClick={() =>
+              navigate("/recommendations", { state: { label: "manual" } })
+            }
+          >
+            Manual Recommendation
+          </button>
+
+          <button
+            style={{
+              ...styles.iconButton,
+              transform: isFlipping ? "rotate(360deg)" : "rotate(0deg)",
+              transition: "transform 0.4s ease",
+            }}
+            onClick={flipCamera}
+          >
+            <FaSyncAlt size={20} color="#000" />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -201,6 +229,24 @@ const styles = {
     marginTop: 10,
     fontSize: 16,
   },
+  buttonRow: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
+    marginTop: 16,
+  },
+  iconButton: {
+    backgroundColor: "white",
+    borderRadius: "50%",
+    padding: 12,
+    border: "none",
+    cursor: "pointer",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   button: {
     backgroundColor: "white",
     borderRadius: 25,
@@ -209,7 +255,6 @@ const styles = {
     fontWeight: "bold",
     fontSize: 16,
     cursor: "pointer",
-    marginTop: 10,
   },
 };
 
