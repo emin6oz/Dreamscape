@@ -12,6 +12,8 @@ import RecommendationsScreen from "./screens/RecommendationsScreen";
 // Auth screens
 import Login from "./screens/login";
 import SignUp from "./screens/signup";
+import ForgotPassword from "./screens/ForgotPassword";
+import ResetPassword from "./screens/ResetPassword"; 
 import SplashScreen from "./screens/SplashScreen";
 
 // Onboarding flow
@@ -64,6 +66,8 @@ function App() {
         {/* Public routes */}
         <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} /> 
         <Route path="/splash" element={<SplashScreen />} />
 
         {/* Onboarding flow */}
@@ -78,9 +82,7 @@ function App() {
         {/* Protected routes */}
         <Route
           path="/*"
-          element={
-            isLoggedIn ? <AppLayout /> : <Navigate to="/login" replace />
-          }
+          element={isLoggedIn ? <AppLayout /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </Router>

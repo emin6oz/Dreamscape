@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
-import "./login.scss";
-import { useNavigate } from "react-router-dom";
 import "./login.scss";
 
 const Login = ({ onLogin }) => {
@@ -14,30 +11,17 @@ const Login = ({ onLogin }) => {
   const { login, loading, error } = useLogin();
   const navigate = useNavigate();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const user = await login(email, password);
-  //   if (user) {
-  //     onLogin(user);
-  //     navigate("/sleepscreen");
-  //   }
-  // };
-
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const devMode = true;
 
     if (devMode) {
-         
-
       const fakeUser = { email: "dev@user.com", name: "Dev User" };
       onLogin(fakeUser);
       navigate("/sleepscreen");
       return;
     }
-   
 
     const user = await login(email, password);
     if (user) {
@@ -45,7 +29,6 @@ const Login = ({ onLogin }) => {
       navigate("/sleepscreen");
     }
   };
-    
 
   return (
     <div className="login-page">
@@ -81,7 +64,10 @@ const Login = ({ onLogin }) => {
             </button>
           </div>
 
-          <div className="forgot-password">Forgot Password?</div>
+          {/* ✅ Make this a real link */}
+          <div className="forgot-password">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
 
           {error && <p className="error-message">{error}</p>}
 
